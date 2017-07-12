@@ -1,0 +1,321 @@
+body {
+	background-color:#fff;
+}
+
+.post-body div {text-align:center; vertical-align:middle;}
+
+.resumen {
+	width:20%;
+	float:left;
+	background-color:blue;
+}
+
+.accesos {
+	width:30%;
+	float:rigth;
+	background:red;
+	
+}
+
+img.logo { width: 60%; height: 60%; }
+
+.gridtable {     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 15px;    margin: 2px;     width: 99.9%; text-align: left;    border-collapse: collapse; }
+
+.gridtable2 {     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 15px;    margin: 2px;     width: 30%; text-align: left;    border-collapse: collapse; }
+
+.gridtable th {     font-size: 15px;     font-weight: normal;     padding: 3px;     background: #b9c9fe;
+    border-top: 4px solid #aabcfe;    border-bottom: 1px solid #fff; color: #039; }
+
+.gridtable2 th {     font-size: 15px;     font-weight: normal;     padding: 3px;     background: #b9c9fe;
+    border-top: 4px solid #aabcfe;    border-bottom: 1px solid #fff; color: #039; }
+
+.pagado{    padding: 2px;     background: #C6FBB3;     border-bottom: 1px solid #fff;
+    color: #669;    border-top: 1px solid transparent; font-size: 15px; 
+}
+
+.abono{    padding: 2px;     background: #F8F406;     border-bottom: 1px solid #fff;
+    color: #669;    border-top: 1px solid transparent; font-size: 15px; 
+}
+
+.nopago { padding: 2px;     background: #F7BBBB;     border-bottom: 1px solid #fff;
+    color: #669;    border-top: 1px solid transparent; font-size: 15px; }
+
+.aunno { padding: 2px;     background: #FFFFFF;     border-bottom: 1px solid #fff;
+    color: #669;    border-top: 1px solid transparent; font-size: 15px; }
+
+.gridtable tr:hover td { background: #d0dafd; color: #339; }
+
+.FacturaOT { background-color:#FFF;width:30%;font-family: Verdana; }
+.FacturaOT .Titulo{color:#fff;font-weight:bold;padding:0 10px;background-color:#369; border: 1px; border-color:#369 }
+.FacturaOT .TituloExc{color:#fff;font-weight:bold;padding:0 10px;background-color:#369; border: 1px; border-color:#369 }
+.FacturaOT .Titulo2{color:#fff;padding:0 5px; background-color:#8DD09C}
+.FacturaOT .TituloBlanco{color:#000;padding:0 5px; background-color:#FFF}
+.FacturaOT .TituloBlanco2{color:#000;padding:0 5px; background-color:#b9c9fe}
+.FacturaOT .Titulo3{color:#fff;padding:0 5px; background-color:#FF8400}
+.FacturaOT .Titulo2 input{width:40px;height: 35px;font-size: 16px;}
+
+.FacturaOT3 { background-color:#FFF;width:100%;font-family: Verdana; }
+.FacturaOT3 .Titulo{color:#fff;font-weight:bold;padding:0 10px;background-color:#369; border: 1px; border-color:#369 }
+.FacturaOT3 .Titulo2{color:#fff;padding:0 5px; background-color:#8DD09C}
+.FacturaOT3 .TituloBlanco{color:#000;padding:0 5px; background-color:#FFF; white-space: nowrap; width: 1px;}
+.FacturaOT3 .TituloBlanco2{color:#000;padding:0 5px; background-color:#b9c9fe; white-space: nowrap; width: 1px;}
+.FacturaOT3 .TituloBlanco4{color:#000;padding:0 5px; background-color:#FFFFFF; white-space: nowrap; width: 1px; text-align:right}
+.FacturaOT3 .Titulo3{color:#fff;padding:0 5px; background-color:#FF8400}
+.FacturaOT3 .Titulo2 input{width:40px;height: 35px;font-size: 16px;}
+
+#iframe_resultados {
+    max-width: 100%;
+    height: 700px;
+    width: 100%;
+    overflow:hidden;
+}
+#iframe_resultados2 {
+    max-width: 100%;
+    height: 700px;
+    width: 100%;
+    overflow:hidden;
+}
+#iframe_resultados3 {
+    max-width: 100%;
+    height: 700px;
+    width: 100%;
+    overflow:hidden;
+}
+
+div.divresultados {
+  clear: both;
+  border: 1px solid #963;
+  height: 600px;
+  overflow: auto;
+  width: 100%;
+}
+
+thead.fixedHeader tr {
+  position: relative
+}
+
+select {
+      height: 50px;
+    }
+
+
+#contenedor {
+    width: 100%;
+    background-color:WHITE;
+    
+}
+#add {
+    width: 35%;
+    background-color:#17118E;  
+    color;WHITE;
+    padding: 25px;
+}
+
+.Titulo4{color:#fff;font-weight:bold;padding:0 10px;background-color:#17118E; border: 1px;}
+
+#columna1 {
+    width: 20%;
+    padding: 1px;
+    float:left;    
+    background-color:WHITE;
+    color:#AE0A2E;
+    font-size:12pt;
+    font-weight: bold;
+    height:40px;
+}
+    
+#columna2 {
+    width: 79%;
+    padding: 1px;
+    float:right;
+    background-color:WHITE;
+    height:40px;
+}
+    
+/* nav */
+
+.nav {
+	margin: 1px 0;
+	z-index: 99;
+}
+.nav ul {
+	margin: 0;
+	padding: 0;
+}
+.nav li {
+	margin: 0 5px 10px 0;
+	padding: 0;
+	list-style: none;
+	display: inline-block;
+	*display:inline; /* ie7 */
+}
+.nav a {
+	padding: 3px 12px;
+	text-decoration: none;
+	color: #999;
+	line-height: 100%;
+}
+.nav a:hover {
+	color: #000;
+}
+
+.nav .current a {
+	background: #2EB7E1;
+	color: #ffffff;
+	/* border-radius: 5px; */
+}
+
+/* right nav */
+.nav.right ul {
+	text-align: right;
+}
+
+/* center nav */
+.nav.center ul {
+	text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+	.FacturaOT { background-color:#FFF;width:100%;font-family: Verdana; }
+	.FacturaOT3 { background-color:#FFF;width:99%;font-family: Verdana; }
+	.FacturaOT3 .TituloBlanco4{color:#000;padding:0 5px; background-color:#FFFFFF; white-space: nowrap; width: 1px; text-align:left}
+	img.logo { width: 90%; height: 90%; }
+	.gridtable2 {     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 15px;    margin: 2px;     width: 100%; text-align: left;    border-collapse: collapse; }
+    #excel {visibility:hidden}
+    .FacturaOT .TituloExc{
+	    max-height: 0px;
+            font-size: 0;
+            display: none !important;
+    }
+
+#iframe_resultados {
+    max-width: 100%;
+    height: 600px;
+
+}
+#iframe_resultados2 {
+    max-width: 100%;
+    height: 600px;
+
+}
+#iframe_resultados3 {
+    max-width: 100%;
+    height: 600px;
+}
+
+#contenedor {
+    width: 100%;
+    background-color:WHITE;    
+}
+
+#add {
+    width: 97%;
+    background-color:#17118E;   
+    color:WHITE;
+    padding: 5px;
+}
+
+#columna1 {
+    width: 29%;
+    padding: 1px;
+    float:left;    
+    background-color:WHITE; 
+    color:#AE0A2E;
+    font-size:12pt;
+    font-weight: bold;
+    height:40px;
+}
+    
+#columna2 {
+    width: 70%;
+    padding: 1px;
+    float:right;
+    background-color:WHITE;
+    height:40px;
+}
+	
+	.nav {
+		/*position: relative;*/
+		min-height: 40px;
+		z-index: 99;
+	}	
+	.nav ul {
+		width: 220px;
+		padding: 5px 0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		border: solid 1px #aaa;
+		background: #fff url(images/icon-menu.png) no-repeat 10px 11px;
+		border-radius: 5px;
+		box-shadow: 0 1px 2px rgba(0,0,0,.3);
+		z-index: 99;
+	}
+	.nav li {
+		display: none; /* hide all <li> items */
+		margin: 0;
+	}
+	.nav .current {
+		display: block; /* show only current <li> item */
+		z-index: 99;
+	}
+	.nav a {
+		display: block;
+		padding: 5px 5px 5px 32px;
+		text-align: left;
+		z-index: 99;
+	}
+	.nav .current a {
+		background: none;
+		color: #666;
+	}
+
+	/* on nav hover */
+	.nav ul:hover {
+		background-image: none;
+	}
+	.nav ul:hover li {
+		display: block;
+		margin: 0 0 5px;
+		z-index: 99;
+	}
+	.nav ul:hover .current {
+		background: url(images/icon-check.png) no-repeat 10px 7px;
+	}
+
+	/* right nav */
+	.nav.right ul {
+		left: auto;
+		right: 0;
+	}
+
+	/* center nav */
+	.nav.center ul {
+		left: 50%;
+		margin-left: -90px;
+	}	
+} 
+   
+
+   /*========================================================
+                     FOOTER Section
+=========================================================*/
+.footer {
+  padding: 4px 0 29px;
+  text-align: center;
+  color: #333333;
+}
+.footer__brd-dark {
+  border-color: #333333;
+}
+.footer .ftr-brand + .info {
+  margin-top: 26px;
+}
+@media (max-width: 767px) {
+  .footer {
+    padding: 60px 0;
+  }
+}

@@ -1,0 +1,76 @@
+<style type="text/css"> 
+*{ 
+    font-size: 14px; 
+} 
+body{ 
+background:#0AAE41; 
+} 
+form.login { 
+    background: none repeat scroll 0 0 #F1F1F1; 
+    border: 1px solid #DDDDDD; 
+    font-family: sans-serif; 
+    margin: 0 auto; 
+    padding: 20px; 
+    width: 278px; 
+    box-shadow:0px 0px 20px black; 
+    border-radius:10px; 
+} 
+form.login div { 
+    margin-bottom: 15px; 
+    overflow: hidden; 
+} 
+form.login div label { 
+    display: block; 
+    float: left; 
+    line-height: 25px; 
+} 
+form.login div input[type="text"], form.login div input[type="password"] { 
+    border: 1px solid #DCDCDC; 
+    float: right; 
+    padding: 4px; 
+} 
+form.login div input[type="submit"] { 
+    background: none repeat scroll 0 0 #DEDEDE; 
+    border: 1px solid #C6C6C6; 
+    float: right; 
+    font-weight: bold; 
+    padding: 4px 20px; 
+} 
+.error{ 
+    color: red; 
+    font-weight: bold; 
+    margin: 10px; 
+    text-align: center; 
+} 
+#columna1{
+    text-align: center;
+    
+}
+.mycss
+{
+	font-weight:normal;
+	color:#F0F1F5;
+	background-color:#0AAE41;
+	letter-spacing:4pt;
+	word-spacing:2pt;
+	font-size:22px;
+	text-align:center;
+	font-family:arial black, sans-serif;
+	line-height:1;
+}
+.mycss2
+{
+	font-weight:normal;
+	color:#C6F50A;
+	background-color:#0AAE41;
+	letter-spacing:0pt;
+	word-spacing:2pt;
+	font-size:22px;
+	text-align:center;
+	font-family:arial black, sans-serif;
+	line-height:1;
+}
+.footer{
+	text-align:center;
+}
+</style>
