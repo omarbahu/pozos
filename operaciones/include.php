@@ -11,7 +11,7 @@ class DBManager{
                 $this->BaseDatos = "pozos";
                 $this->Servidor = "127.0.0.1";
                 $this->Usuario = "omarbahu";
-                $this->Clave = "";
+                $this->Clave = ""; 
                 //$this->Usuario = "root";
                 //$this->Clave = "";
         }
