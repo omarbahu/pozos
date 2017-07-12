@@ -1,0 +1,271 @@
+@import url(https://fonts.googleapis.com/css?family=Vibur);
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-family: arial;
+}
+
+body {
+  background: #FFfFFF;
+  vertical-align: top;
+  padding-top: 0;
+}
+
+h1 {
+  color: #ccc;
+  text-align: center;
+  font-family: 'Vibur', cursive;
+  font-size: 50px;
+}
+
+.login-form {
+  width: 350px;
+  padding: 40px 30px;
+  background: #C1863F;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  height: 50px;
+  border: none;
+  padding: 5px 7px 5px 15px;
+  background: #fff;
+  color: #666;
+  border: 2px solid #ddd;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.form-control:focus, .form-control:focus + .fa {
+  border-color: #10CE88;
+  color: #10CE88;
+}
+
+.form-group .fa {
+  position: absolute;
+  right: 15px;
+  top: 17px;
+  color: #999;
+}
+
+.log-status.wrong-entry {
+  -moz-animation: wrong-log 0.3s;
+  -webkit-animation: wrong-log 0.3s;
+  animation: wrong-log 0.3s;
+}
+
+.log-status.wrong-entry .form-control, .wrong-entry .form-control + .fa {
+  border-color: #ed1c24;
+  color: #ed1c24;
+}
+
+.log-btn {
+  background: #EECDA6;
+  dispaly: inline-block;
+  width: 100%;
+  font-size: 16px;
+  height: 50px;
+  color: #000;
+  text-decoration: none;
+  border: none;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.link {
+  text-decoration: none;
+  color: #C6C6C6;
+  float: right;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+.link:hover {
+  text-decoration: underline;
+  color: #8C918F;
+}
+
+.alert {
+  display: none;
+  font-size: 12px;
+  color: #f00;
+  float: left;
+}
+
+
+
+
+.banner_1{
+  background: #C1863F;
+  width: 100%;
+  top:0px;
+  height: 30px;
+  font-size: 16px;
+  text-align: center;
+  left: 0px;
+  color: #fff;
+  padding: 3px;
+  position: absolute;
+
+}
+.banner_2{
+  background: #C1863F;
+  width: 100%;
+  top:0px;
+  height: 55px;
+  font-size: 16px;
+  text-align: center;
+  left: 0px;
+  color: #fff;
+  padding: 3px;
+  position: absolute;
+
+}
+
+.logo_form{
+  width: 50%;
+  position: relative;
+  left: 70px;
+  padding-bottom: 20px;
+}
+
+.logo_principal path{
+
+  fill: white;
+  left: 0px;
+  padding-bottom: 0px;
+}
+
+.ban_left {
+  float: left;
+  text-align: left;
+  
+}
+.ban_der{
+  float: right;
+  
+}
+.ban_center{
+  
+  padding: 0px;
+  display:inline-block;
+  
+}
+
+a {
+  color: white;
+}
+
+#contenido {
+  position: relative;
+}
+/* menu */
+
+.menu{display:block; top: 0px; margin-top: -2px; margin-bottom: 0px;
+}
+ 
+.menu li{display: inline-block;
+position: relative;
+z-index:100;
+}
+ 
+.menu li a {font-weight:600;
+text-decoration:none;
+padding:11px;
+display:block;
+color:#ffffff;
+ 
+-webkit-transition: all 0.2s ease-in-out 0s;
+   -moz-transition: all 0.2s ease-in-out 0s;
+   -o-transition: all 0.2s ease-in-out 0s;
+   -ms-transition: all 0.2s ease-in-out 0s;
+   transition: all 0.2s ease-in-out 0s;
+}
+ 
+.menu li a:hover, .menu li:hover > a{color:#ffffff;
+background:#9CA3DA;}
+
+/* hide the second level menu */
+.menu ul {display: none;
+margin: 0;
+padding: 0;
+width: 150px;
+position: absolute;
+top: 40px;
+left: 0px;
+background: #ffffff;
+}
+ 
+/* display second level menu on hover */
+.menu li:hover > ul{ display: block;}
+ 
+.menu ul li {display:block;
+float: none;
+background:none;
+margin:0;
+padding:0;
+}
+ 
+.menu ul li a {font-size:12px;
+font-weight:normal;
+display:block;
+color:#797979;
+border-left:3px solid #ffffff;
+background:#ffffff;}
+ 
+.menu ul li a:hover, .menu ul li:hover > a{
+background:#f0f0f0;
+border-left:3px solid #9CA3DA;
+color:#797979;
+}
+
+/* change level 3 menu positions */
+.menu ul ul {left: 149px;
+  top: 0px;
+}
+
+/* carouse */
+.carousel{max-height:100%; z-index:-999999999999}
+.carousel,
+.item,
+.active {
+    max-height: 100%;
+}
+
+.carousel-inner {
+    max-height: 100%;
+  
+}
+
+/* Background images are set within the HTML using inline CSS, not here */
+
+.fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+
+
