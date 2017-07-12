@@ -7,10 +7,11 @@ class DBManager{
         var $Usuario;
         var $Clave;
         function DBManager(){
-                $this->BaseDatos = "bsitcomm_pozos";
-                $this->Servidor = "localhost";
-                $this->Usuario = "bsitcomm_upozos";
-                $this->Clave = "GA5-F~Nuh#ob";
+                
+                $this->BaseDatos = "pozos";
+                $this->Servidor = "127.0.0.1";
+                $this->Usuario = "omarbahu";
+                $this->Clave = "";
                 //$this->Usuario = "root";
                 //$this->Clave = "";
         }
