@@ -73,16 +73,17 @@ class operpagos_class{
 	
 	function update_saldo($mes, $anio, $tipo, $monto, $fecha){
 		if ($this->con->conectar()== true){
-		   $sql_query="update ingresos_egresos set monto = $monto, fecha = '$fecha' where anio = $anio and mes = $mes and tipo = $tipo"; 
+		   $sql_query="update ingresos_egresos set monto = $monto where anio = $anio and mes = $mes and tipo = $tipo"; 
 			//return $sql_query;
 			mysql_query($sql_query);
 		   return mysql_affected_rows();
 		}
 	}
 
-	function update_ingre_egre($mes, $anio, $tipo, $monto, $fecha){
+	function update_ingre_egre($mes, $anio, $tipo, $monto, $idconcepto){
 		if ($this->con->conectar()== true){
-		   $sql_query="update ingresos_egresos set monto = $monto where anio = $anio and mes = $mes and tipo = $tipo and fecha = '$fecha'"; 
+		   $sql_query="update ingresos_egresos set monto = $monto 
+				where anio = $anio and mes = $mes and tipo = $tipo and idconcepto = $idconcepto"; 
 			//return $sql_query;
 			mysql_query($sql_query);
 		   return mysql_affected_rows();
@@ -91,16 +92,17 @@ class operpagos_class{
 
 	function insert_saldo($fecha, $mes, $anio, $tipo, $monto, $concepto){
 		if ($this->con->conectar()== true){
-		   $sql_query="insert into ingresos_egresos (fecha, mes, anio, tipo, monto, concepto)
-		   				values ('$fecha', $mes, $anio, $tipo, $monto, '$concepto'); "; 
+		   $sql_query="insert into ingresos_egresos (fecha, mes, anio, tipo, monto, idconcepto)
+		   				values ('$fecha', $mes, $anio, $tipo, $monto, $concepto); "; 
 			//return $sql_query;
 			return mysql_query($sql_query);
 		}
 	}
 	
-	function delete_ingre_egre($fecha){
+	function delete_ingre_egre($mes, $anio, $tipo, $idconcepto){
 		if ($this->con->conectar()== true){
-		   $sql_query="delete from ingresos_egresos where fecha = '$fecha'"; 
+		   $sql_query="delete from ingresos_egresos 
+		   where anio = $anio and mes = $mes and tipo = $tipo and idconcepto = $idconcepto"; 
 			//return $sql_query;
 			return mysql_query($sql_query);
 		   

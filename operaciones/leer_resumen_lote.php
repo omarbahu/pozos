@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
-    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" href="../css/jquery-ui.min.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery.mobile-1.4.5.min.js"></script>
-</head>
-<body style="font-family: Verdana;">   
 <?php
 include_once("include.php");
 include_once("casas_entities.php");
@@ -17,8 +5,8 @@ include_once("operpagos_entities.php");
 include_once("casas_class.php");
 include_once("operpagos_class.php");
 
-$casa = $_GET["casa"];
-$pago = $_GET["pago"];
+$casa = $_POST["casa"];
+$pago = $_POST["pago"];
 
 $Objoperpagos = new operpagos_class();
 
@@ -26,22 +14,6 @@ $anio_inicial = 2013;
 $mes_inicial = 1;
 $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"); 
 
-$dsc_pronto_pago = 50;
-
-switch ($pago) {
-	case "1":
-		$cuota = 300;
-		break;
-	case "3":
-		$cuota = 100;
-		break;
-	case "4":
-		$cuota = 330;
-		break;	
-	default:
-		$cuota = 300;
-		break;
-}
 
 
 $anio_actual = date("Y");
@@ -50,6 +22,7 @@ $mes_actual = date('n');
 $suma_descuentos = 0;
 
 $resultadoOper = $Objoperpagos->gat_resumen($casa, $pago);
+
 $monto = 0;
 $arr_montos_casa = array();
 $k=0;
@@ -86,8 +59,15 @@ while($row2=mysql_fetch_array($resultadoOper)){
 }
 
 //echo $cuota ." - " .$dsc_pronto_pago;
-echo "<table class=gridtable2>";
-echo "<thead class='fixedHeader'>";
+
+echo "<table class='table table-bordered table-striped'>";
+echo "<tr>";
+echo "<th colspan=3>Resumen Lote:" . $casa . "            Propietario:  " . $res_propietario . "</th>";
+echo "</tr>";
+echo "</table>";
+
+echo "<table class='table table-bordered table-striped'>";
+
 echo "<tr>";
 $i=0;
 for ($anio=$anio_inicial-1; $anio<=$anio_actual; $anio++)
@@ -100,7 +80,7 @@ for ($anio=$anio_inicial-1; $anio<=$anio_actual; $anio++)
 		echo "<th>Total</th>";
 	}
 	else {
-    	echo "<th>".$anio."</th>";
+    	echo "<th><a href='#' OnClick='verAnio(".$pago.",".$anio.");' >".$anio."</a></th>";
 	}
     $i++;
 }
@@ -246,25 +226,13 @@ if ($pago == 4){
 	//echo $suma_descuentos." ---- ".$cuenta_meses_adeudo;
 }
 
-
-
 echo "</table>";
-echo "<br>";
-echo "<table class=gridtable2>";
-echo "<thead class='fixedHeader'>";
-echo "<tr>";
-echo "<th colspan=3>Resumen casa:" . $casa . " <br>" . $res_propietario . "</th>";
-echo "</tr>";
-echo "</thead>";
-echo "</table>";
-echo "<table class=gridtable2>";
-echo "<thead class='fixedHeader'>";
+echo "<table class='table table-bordered table-striped'>";
 echo "<tr>";
 echo "<th>Total de Meses:</th>";
 echo "<th>Total Pagado:</th>";
 echo "<th>Total Adeudo:</th>";
 echo "</tr>";
-echo "</thead>";
 echo "<tr>";
 echo "<td class=pagado>" . $num_meses . "</td>";
 echo "<td class=pagado>". money_format('%#1n',$suma_monto_anio) ."</td>";
@@ -275,4 +243,3 @@ echo "</table>";
 
 //echo $suma_descuentos;
 ?>
-</body>

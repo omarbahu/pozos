@@ -8,10 +8,11 @@ session_start();
 
 $user_check=$_SESSION['login_user'];
 
+$path = "https://pozos-omarbahu.c9users.io/";
 
 if(!isset($user_check)){
 	echo "entre a session: ".$user_check." >" ;
-header('Location: index.php'); // Redirecting To Home Page
+header('Location: '.$path.'index.php'); // Redirecting To Home Page
 }
 
 
@@ -27,7 +28,7 @@ $Objoperpagos = new operpagos_class();
 
 
 if(!isset($login_session)){
-header('Location: index.php'); // Redirecting To Home Page
+header('Location: '.$path.'index.php'); // Redirecting To Home Page
 }
 
 ?>

@@ -25,7 +25,7 @@ include_once("operpagos_class.php");
 			//echo $resultado;
 			echo "Registro Realizado Correctamente";
 		}else{
-			if ($operacion==1){
+			if ($operacion=="1"){
 				$resultado = $Objoperpagos->update_ingre_egre($mes, $anio, $pago, $monto, $fecha);	
 			//echo $resultado;
 				echo "Registro Actualizado Correctamente";

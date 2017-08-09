@@ -11,7 +11,7 @@ class DBManager{
                 $this->BaseDatos = "pozos";
                 $this->Servidor = "127.0.0.1";
                 $this->Usuario = "omarbahu";
-                $this->Clave = ""; 
+                $this->Clave = "SisB+200";
                 //$this->Usuario = "root";
                 //$this->Clave = "";
         }
@@ -29,4 +29,6 @@ class DBManager{
                 return true;
         }
 }
+
+$path="https://pozos-omarbahu.c9users.io/";
 ?>

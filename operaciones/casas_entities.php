@@ -8,7 +8,15 @@ class casas {
 	public $rentado; 
     public $arrendado; 
     public $mailarrendado; 
+    public $descuento; 
+    public $monto_dsc; 
+    public $password; 
+    public $admin; 
+    public $status; 
+    public $direccion; 
     public $comentarios; 
+    
+	
 	
 	    public function __get($property) {
             if (property_exists($this, $property)) {

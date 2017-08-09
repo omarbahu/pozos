@@ -1,32 +1,21 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
-    
-    <link rel="stylesheet" href="css/estilos.css">
-    <script src="js/jquery.js"></script>
-    
-</head>
-<body style="font-family: Verdana;">    
-
-<?php 
-include 'header.php';
-?>
-<br>
-<br>
-<br>
 <?php
-include_once("operaciones/include.php");
-include_once("operaciones/casas_entities.php");
-include_once("operaciones/operpagos_entities.php");
-include_once("operaciones/casas_class.php");
-include_once("operaciones/operpagos_class.php");
+include_once("include.php");
+include_once("casas_class.php");
+include_once("operpagos_class.php");
 
 
-$anio = $_GET["anio"];
-$pago = $_GET["pago"];
-$txt_anio = $anio-2000;
+$anio_cor = $_POST["anio"];
+$pago = $_POST["pago"];
+
+
+
+
+$anio_actual = date('o'); 
+$mes_actual = date('n'); 
+
+
+
+$txt_anio = $anio_cor-2000;
 
 	$Objoperpagos = new operpagos_class();
 
@@ -39,7 +28,19 @@ while($row=mysql_fetch_array($resPagos)){
 	$pago_desc =  $row['descripcion'];
 }
 
-//echo $periodico;
+$arr_cuotas = array();
+$autoinc = 0;
+$resultadoOper = $Objoperpagos->get_list_cuotas($pago);
+while($row2=mysql_fetch_array($resultadoOper)){ 
+	$res_c_fecini =  $row2['fecini'];
+	$res_c_cuota =  $row2['cuota'];
+	$res_c_descuento =  $row2['descuento'];
+	$arr_cuotas[$autoinc] = array();
+	$arr_cuotas[$autoinc][0] = $res_c_fecini;
+	$arr_cuotas[$autoinc][1] = $res_c_cuota;
+	$arr_cuotas[$autoinc][2] = $res_c_descuento;
+	$autoinc++;
+}
 
 $resultadoCasas = $Objcasas->gat_all_casas();
 
@@ -51,42 +52,19 @@ while($row=mysql_fetch_array($resultadoCasas)){
 	$i++;
 }
 $count_casas = count($array_casas);
-//echo $count_casas;
 
 $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"); 
 
-$cuota = 250;
-
-$anio_actual = date('o'); 
-$mes_actual = date('n'); 
 
 $array_edo = array();
-echo "<table class=gridtable>";
-echo "<thead class='fixedHeader'>";
-if ($periodico == 1){
-	echo "<tr>";
-	echo "<th></th>";
-	for ($anio = 2013; $anio<=$anio_actual; $anio++){
-		$col = 12;
-		if ($anio == 2013)
-			$col = 12;
-		else
-			$col = 12;			
-		/*
-		if ($anio == $anio_actual)
-			$col = $mes_actual;
-		*/		
-		echo "<th colspan=$col class=pagado>$anio</th>";
-	}
-	echo "</tr>";
-}
-echo "<tr>";
-echo "<th>Casas:</th>";
+
+echo "<table class='table table-bordered table-striped'>";
+echo "<th>Lotes:</th>";
 
 if ($periodico == 1){
-	for ($anio = 2013; $anio<=$anio_actual; $anio++){
+	
 		$mesinicio = 1;
-		if ($anio == 2013)
+		if ($anio_cor == 2017)
 			$mesinicio = 1;
 		else
 			$mesinicio = 1;	
@@ -103,7 +81,7 @@ if ($periodico == 1){
 		for ($mes = $mesinicio; $mes<=$mesfinal; $mes++){
 				echo "<th>".$meses[$mes-1]."</th>";
 		}
-	}
+	
 }else{
 	echo "<th>".$pago_desc."</th>";
 }
@@ -144,15 +122,16 @@ foreach ($array_casas as $valor) {
 		$res_descuento =  $row2['descuento'];
 		$res_monto_dsc =  $row2['monto_dsc'];
 	}
+	
 
 	$mes = 0;
 	if ($periodico == 1){
-		for ($anio = 2012; $anio<=$anio_actual; $anio++){
+		for ($anio = $anio_cor-1; $anio<=$anio_cor; $anio++){
 				//echo "casa:".$valor." ".$anio."....";
 			if ($mes == 0){
 				$array_edo[$valor-1][$mes-1] = $valor; 
 				// -------------------------------------------------------- //
-				echo "<td><b><a href='#' OnClick='ver_detalle(".$array_edo[$valor-1][$mes-1].",".$pago.");' >".$array_edo[$valor-1][$mes-1]."</b></td>";
+				echo "<td><b><a href='#' OnClick='ver_detalle(".$array_edo[$valor-1][$mes-1].",".$pago.");' >". $array_edo[$valor-1][$mes-1]." ". $res_propietario."</b></td>";
 				// -------------------------------------------------------- //
 				$mes = 1;
 				}
@@ -173,6 +152,21 @@ foreach ($array_casas as $valor) {
 					$mesfinal = 12;    		
 				*/
 				for ($mes = $mesinicio; $mes<=$mesfinal; $mes++){
+					
+					//recorremos la lista de las cuotas para validar el monto por mes
+					if ($mes < 10)
+						$num_fechaactual = $anio . str_pad($mes, 2, "0", STR_PAD_LEFT);
+					else
+						$num_fechaactual = $anio . $mes;
+					//echo $num_fechaactual."-";
+					foreach ($arr_cuotas as $list_cuota){						
+						if ($num_fechaactual >= $list_cuota[0]){
+							$cuota = $list_cuota[1];
+							$dsc_pronto_pago = $list_cuota[2];
+						}
+					}
+					
+					//echo $cuota." ";
 			
 					setlocale(LC_MONETARY, 'en_US');
 					$monto = 0;
@@ -192,54 +186,54 @@ foreach ($array_casas as $valor) {
 						if ($res_descuento == 1){
 							
 							if ($monto >= ($cuota - $res_monto_dsc))
-								echo "<td class=pagado>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=pagado>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else if ($monto > 0)
-								echo "<td class=abono>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=abono>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else
-								echo "<td class=nopago>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=nopago>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 						} else {
 							
 							if ($monto >= ($cuota - $dsc_pronto_pago))
-								echo "<td class=pagado>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=pagado>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else if ($monto > 0)
-								echo "<td class=abono>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=abono>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else
-								echo "<td class=nopago>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=nopago>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 						}
 						/*
 						if ($monto >= $cuota)
-							echo "<td class=pagado>".$array_edo[$valor-1][$mes-1]."</td>";
+							echo "<td class=pagado>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 						else if ($monto > 0)
-								echo "<td class=abono>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=abono>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else
-								echo "<td class=nopago>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=nopago>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							*/
 					} else if ($anio < $anio_actual)
 					{
 						if ($res_descuento == 1){
 							
 							if ($monto >= ($cuota - $res_monto_dsc))
-								echo "<td class=pagado>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=pagado>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else if ($monto > 0)
-								echo "<td class=abono>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=abono>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else
-								echo "<td class=nopago>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=nopago>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 						} else {
 							
 							if ($monto >= ($cuota - $dsc_pronto_pago))
-								echo "<td class=pagado>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=pagado>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else if ($monto > 0)
-								echo "<td class=abono>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=abono>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else
-								echo "<td class=nopago>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=nopago>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 						}
 						/*
 						if ($monto >= $cuota)
-							echo "<td class=pagado>".$array_edo[$valor-1][$mes-1]."</td>";
+							echo "<td class=pagado>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 						else if ($monto > 0)
-								echo "<td class=abono>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=abono>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							else
-								echo "<td class=nopago>".$array_edo[$valor-1][$mes-1]."</td>";
+								echo "<td class=nopago>".money_format('%(#10n', $array_edo[$valor-1][$mes-1])."</td>";
 							*/
 					} else {
 						echo "<td class=aunno></td>";	
@@ -273,41 +267,52 @@ echo "</tbody>";
 echo "</table>"
 
 /*
-foreach ($array_edo as $v1) {
-    foreach ($v1 as $v2) {
-        echo "$v2 -";
+    include_once("../../operaciones/include.php");
+    include_once("../../operaciones/casas_class.php");
+
+
+$object = new casas_class();
+
+// Design initial table header
+$data = '<table class="table table-bordered table-striped">
+						<tr>
+							<th>Tipo de Pago</th>
+							<th>Fecha Inicial</th>
+							<th>Cuota</th>
+							<th>Descuento</th>
+							<th>A</th>
+							<th>B</th>
+						</tr>';
+
+
+$cuotas = $object->get_cuotas();
+
+$i=0;
+while($row=mysql_fetch_array($cuotas)){ 
+	$i++;
+        $data .= '<tr>
+				<td>' . $row['descripcion'] .'</td>
+                <td>' . $row['fecini'] .'</td>
+                <td>' . $row['cuota'] .'</td>
+                <td>' . $row['descuento'] .'</td>
+				<td>
+					<button onclick="GetUserDetails(' . $row['idtipopago'] . ',' . $row['fecini'] .')" class="btn btn-warning">A</button>
+				</td>
+				<td>
+					<button onclick="DeleteUser(' . $row['idtipopago'] . ',' . $row['fecini'] .')" class="btn btn-danger">B</button>
+				</td>
+    		</tr>';
+     
     }
-    echo "<br>";
+if ($i = 0)
+{
+    // records not found
+    $data .= '<tr><td colspan="6">No se encontraron registros!</td></tr>';
 }
+
+$data .= '</table>';
+
+echo $data;
 */
 
 ?>
-</body>
-<script type="text/javascript"> 
-
-function ver_detalle( num_casa, pago )
-{
-	parent.$('#iframe_resultados').attr('src', "grid_resumen.php?casa="+ num_casa +"&pago=" + pago);
-	/*
-	var parametros = {
-                "casa" : num_casa,
-                "pago" : pago
-              };
-                $.ajax({
-                    type: 'GET',
-                    data: parametros,
-                    url: 'grid_resumen.php',
-                    beforeSend: function(){
-                      //alert(3);
-                      $('#Resultados1').html('<div><img src="../images/loading.gif"/></div>');
-                    },
-                    success: function(response) {
-
-                        $("#Resultados1").fadeIn(1000).html(response);
-                    }
-                });        
-	*/
-
-  }
-
-</script>
