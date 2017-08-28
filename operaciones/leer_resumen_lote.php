@@ -10,8 +10,7 @@ $pago = $_POST["pago"];
 
 $Objoperpagos = new operpagos_class();
 
-$anio_inicial = 2013;
-$mes_inicial = 1;
+
 $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"); 
 
 

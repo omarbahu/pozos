@@ -9,6 +9,9 @@ include_once("operpagos_class.php");
 include '../header.php';
 ?>
 
+<script type="text/javascript" src="https://select2.github.io/dist/js/select2.full.js"></script>
+<link href="https://select2.github.io/dist/css/select2.min.css" type="text/css" rel="stylesheet" />
+
 <style type="text/css">
 
 .formu-div {width: 80%; left: 10%; position: relative; text-align: center;}
@@ -42,8 +45,18 @@ include '../header.php';
             <div class="form-group">
               <!-- <span class="help-block text-muted small-font" >e</span> -->
               <label for="inputEmail" class="col-md-4 control-label">Numero de Lote:</label>
+              
               <div class="col-md-8">
-                <input type="text" class="form-control" placeholder="No. Lote (204)" id="casa" name="casa" />
+                <select class="js-example-basic-single" id="casa" name="casa" style="width: 50%">
+                <?php 
+                $object = new casas_class();
+                $lotes = $object->get_all_casas_combo(); 
+                while($row=mysql_fetch_array($lotes)){ 
+                ?>
+                  <option value="<?php echo $row['numcasa']; ?>"><?php echo $row['numcasa']; ?></option>
+                <?php } ?>
+                </select>
+                
               </div>
             </div>
           </div>
@@ -70,7 +83,7 @@ include '../header.php';
                 <select class="selectpicker" id="anio" name="anio">   
                 	<?php 
                 	$anio_actual = date('o');
-                	for ($j=2013; $j<=$anio_actual+5; $j++) { ?>
+                	for ($j=$anio_inicial; $j<=$anio_actual+5; $j++) { ?>
                 		<option 
                 		<?php if ($anio_actual==$j) { ?>
                 		selected="selected"
@@ -144,7 +157,7 @@ include '../header.php';
               <label for="inputEmail" class="col-md-4 control-label">Opcion de Pago:</label>
               <div class="col-md-8">
                   <span class="input-group-addon">
-                    <input type="checkbox" aria-label="..." id="real" name="real">
+                    <input type="checkbox" aria-label="..." id="real" name="real" checked>
                     <label for="Real">Real (Auto. se va a Ingresos)</label>
                   </span>
               </div>
@@ -181,6 +194,11 @@ include '../header.php';
 </nav>
 
 <script>
+
+$(document).ready(function() {
+  $(".js-example-basic-single").select2();
+});
+
 $(document).ready(function(event) { 
         var today = new Date();   
         var dd = today.getDate();

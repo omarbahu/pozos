@@ -6,11 +6,9 @@ include_once("casas_class.php");
 include_once("operpagos_class.php");
 
 
-	
 	//echo "entro";
 	$accion = $_POST["accion"];
 
-	
 	//echo $_POST["ingre_egre"]."------";
 	$monto = $_POST["monto"];
 	$concepto = $_POST["idconcepto"];
@@ -36,6 +34,4 @@ include_once("operpagos_class.php");
 			echo "Registro Borrado Correctamente";
 			break;
 	}
-		
-	
-		?>
+?>

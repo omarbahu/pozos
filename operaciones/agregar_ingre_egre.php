@@ -31,7 +31,7 @@ include '../header.php';
   
 
       <div class="row ">
-              <div class="col-md-12">
+              <div class="col-md-12" >
                   <h4 class="modal-title" id="myModalLabel">Agregar Ingresos o Egresos</h4>
               </div>
           </div>
@@ -73,7 +73,7 @@ include '../header.php';
                 <select class="selectpicker" id="anio" name="anio">   
                 	<?php 
                 	$anio_actual = date('o');
-                	for ($j=2013; $j<=$anio_actual+5; $j++) { ?>
+                	for ($j=$anio_inicial; $j<=$anio_actual+5; $j++) { ?>
                 		<option 
                 		<?php if ($anio_actual==$j) { ?>
                 		selected="selected"

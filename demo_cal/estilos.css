@@ -23,14 +23,14 @@ body {
 .toggle {background:#b9c9fe;}
 .siguiente,.anterior{color:red;text-decoration:none;line-height:40px;}
 
-#mask {position:absolute;left:0;top:0;z-index:9000;background:#000;display:none;width:100%;height:56%;}
+#mask {position:absolute;left:0;top:0;z-index:9000;background:#000;display:none;width:100%;height:70%;}
 
 #respuesta_form,#respuesta{clear:both;padding:20px 0}
 
 .window {position:absolute;top:20px;right:20px;left:20px;bottom:20px;display:block;z-index:9999;padding:20px;background-color:#ffffff;overflow:auto;
-font-size:2.5em; height: 200px;}
+font-size:18px; height: 250px;}
 
-.window h2{text-align:center;margin:0 0 10px 0;font-size:1.5em;color:#000}
+.window h4{text-align:center;margin:0 0 10px 0;font-size:18px;color:#000}
 .window a.close{position:absolute;right:0;top:0;padding:10px;background:#e9e9e9 url(images/delete.png) 50% 50% no-repeat;text-decoration:none}
 .window p{margin:0 0 5px 0;font-size:1em;border:1px solid #e9e9e9;text-align:left;padding:10px;clear:both;}
 
@@ -64,9 +64,9 @@ label.error {position:absolute;left:13px;top:13px;padding:0;width:20px;height:20
 	#respuesta_form,#respuesta{clear:both;padding:20px 0}
 
 	.window {position:absolute;top:20px;right:20px;left:20px;bottom:20px;display:block;z-index:9999;padding:20px;background-color:#ffffff;overflow:auto;
-	font-size:2.5em; height: 200px;}
+	font-size:18px; height: 200px;}
 
-	.window h2{text-align:center;margin:0 0 10px 0;font-size:1.5em;color:#000}
+	.window h4{text-align:center;margin:0 0 10px 0;font-size:18px;color:#000}
 	.window a.close{position:absolute;right:0;top:0;padding:10px;background:#e9e9e9 url(images/delete.png) 50% 50% no-repeat;text-decoration:none}
 	.window p{margin:0 0 5px 0;font-size:1em;border:1px solid #e9e9e9;text-align:left;padding:10px;clear:both;}
 

@@ -1,10 +1,10 @@
 <?php
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-date_default_timezone_set('Europe/Madrid');
-$dbhost="localhost";
-$dbname="bsitcomm_cuevasanta";
-$dbuser="bsitcomm_csanta";
-$dbpass="p*UTFX(=eu-6";
+//date_default_timezone_set('Europe/Madrid');
+$dbhost="127.0.0.1";
+$dbname="pozos";
+$dbuser="omarbahu";
+$dbpass="SisB+200";
 $tabla="tcalendario";
 $db = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
 if ($db->connect_errno) {

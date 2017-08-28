@@ -13,7 +13,7 @@ class operpagos_class{
 		if ($this->con->conectar()== true){
 		//anio = $anio and
 		   $sql_query="SELECT numcasa, mes, anio, monto
-		   				from operpagos where numcasa = $casa and tipopago = $pago order by anio, mes"; 
+		   				from operpagos where numcasa = '$casa' and tipopago = $pago order by anio, mes"; 
 
 			return mysql_query($sql_query);
 			//return $sql_query;
@@ -23,7 +23,7 @@ class operpagos_class{
 	function gat_resumen($casa, $pago){
 		if ($this->con->conectar()== true){
 		   $sql_query="SELECT numcasa, mes, anio, monto
-		   				from operpagos where numcasa = $casa and tipopago = $pago order by anio, mes"; 
+		   				from operpagos where numcasa = '$casa' and tipopago = $pago order by anio, mes"; 
 
 			return mysql_query($sql_query);
 			//return $sql_query;
@@ -33,7 +33,7 @@ class operpagos_class{
 	function get_monto_pago($casa, $mes, $anio, $pago){
 		if ($this->con->conectar()== true){
 		   $sql_query="SELECT monto
-		   				from operpagos where numcasa = $casa and tipopago = $pago and mes = $mes and anio = $anio"; 
+		   				from operpagos where numcasa = '$casa' and tipopago = $pago and mes = $mes and anio = $anio"; 
 			return mysql_query($sql_query);
 		}
 	}
@@ -41,7 +41,7 @@ class operpagos_class{
 	function insert_operpagos(operpagos $operpagos){
 		if ($this->con->conectar()== true){
 		   $sql_query="insert into operpagos (numcasa, mes, anio, tipopago, fechapago, monto, comentarios, formapago)
-		   				values ($operpagos->numcasa, $operpagos->mes, $operpagos->anio, $operpagos->tipopago, '$operpagos->fechapago', $operpagos->monto, 
+		   				values ('$operpagos->numcasa', $operpagos->mes, $operpagos->anio, $operpagos->tipopago, '$operpagos->fechapago', $operpagos->monto, 
 						'$operpagos->comentarios', $operpagos->formapago); "; 
 			//return $sql_query;
 			return mysql_query($sql_query);
@@ -50,7 +50,7 @@ class operpagos_class{
 	
 	function update_operpagos(operpagos $operpagos){
 		if ($this->con->conectar()== true){
-		   $sql_query="update operpagos set monto = $operpagos->monto where numcasa = $operpagos->numcasa and mes = $operpagos->mes and anio = $operpagos->anio; "; 
+		   $sql_query="update operpagos set monto = $operpagos->monto where numcasa = '$operpagos->numcasa' and mes = $operpagos->mes and anio = $operpagos->anio; "; 
 			//return $sql_query;
 			return mysql_query($sql_query);
 		}
@@ -58,7 +58,9 @@ class operpagos_class{
 	
 	function get_ingre_egre($mes, $anio, $tipo){
 		if ($this->con->conectar()== true){
-		   $sql_query="SELECT monto, concepto, fecha FROM ingresos_egresos where anio = $anio and mes = $mes and tipo = $tipo order by fecha"; 
+		   $sql_query="SELECT a.monto, descripcion, fecha 
+					FROM ingresos_egresos a, conceptos b
+					where a.idconcepto = b.idconcepto and anio = $anio and mes = $mes and tipo = $tipo order by fecha"; 
 			return mysql_query($sql_query);
 			//return $sql_query;
 		}
@@ -66,14 +68,16 @@ class operpagos_class{
 	
 	function get_ingre_egre_pagos($mes, $anio, $tipo, $concepto){
 		if ($this->con->conectar()== true){
-		   $sql_query="SELECT concepto, monto, fecha FROM ingresos_egresos where anio = $anio and mes = $mes and tipo = $tipo and UPPER(concepto) = '$concepto' order by fecha"; 
+		   $sql_query="SELECT b.descripcion, a.monto, fecha 
+		   FROM ingresos_egresos a, conceptos b
+		   where a.idconcepto = b.idconcepto and anio = $anio and mes = $mes and tipo = $tipo and b.idconcepto = '$concepto' order by fecha"; 
 			return mysql_query($sql_query);
 		}
 	}
 	
-	function update_saldo($mes, $anio, $tipo, $monto, $fecha){
+	function update_saldo($mes, $anio, $tipo, $monto, $fecha, $idconcepto){
 		if ($this->con->conectar()== true){
-		   $sql_query="update ingresos_egresos set monto = $monto where anio = $anio and mes = $mes and tipo = $tipo"; 
+		   $sql_query="update ingresos_egresos set monto = $monto where anio = $anio and mes = $mes and tipo = $tipo and idconcepto = $idconcepto"; 
 			//return $sql_query;
 			mysql_query($sql_query);
 		   return mysql_affected_rows();
@@ -111,7 +115,7 @@ class operpagos_class{
 
 	function get_datos_casa($casa){
 		if ($this->con->conectar()== true){
-		   $sql_query="SELECT propietario, mail, descuento, monto_dsc FROM casas where numcasa = $casa"; 
+		   $sql_query="SELECT propietario, mail, descuento, monto_dsc FROM casas where numcasa = '$casa'"; 
 			return mysql_query($sql_query);
 			//return $sql_query;
 		}
@@ -149,7 +153,7 @@ class operpagos_class{
 		if ($this->con->conectar() == true){
 			$sql_query = "SELECT numcasa, propietario, admin  
 						FROM casas  
-						where numcasa = $numcasa and password = '$password'";
+						where numcasa = '$numcasa' and password = '$password'";
 			return mysql_query($sql_query);
 			//echo $sql_query;
 		}
@@ -159,7 +163,7 @@ class operpagos_class{
 		if ($this->con->conectar() == true){
 			$sql_query = "SELECT numcasa, propietario, admin  
 						FROM casas  
-						where numcasa = $numcasa";
+						where numcasa = '$numcasa'";
 			return mysql_query($sql_query);
 			//echo $sql_query;
 		}

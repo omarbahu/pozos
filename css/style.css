@@ -304,20 +304,22 @@ color:#797979;
     font-size: 15px; 
 }
 
-/* unvisited link */
+/* unvisited link 
 a:link {
     color: #FFF;
 }
 
-/* visited link */
+/* visited link 
 a:visited {
     color: #FFF;
 }
 
-/* mouse over link */
+/* mouse over link 
 a:hover {
     color: #FFF;
 }
+*/
+
 
 /* selected link */
 a:active {

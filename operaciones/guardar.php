@@ -38,7 +38,7 @@ include_once("operpagos_class.php");
 	$tipoguardar = $_POST["tipoguardar"];
 	//echo "<br>tipopago:".$tipopago;
 	$anio = $_POST["anio"];
-	$real = $_POST["Real"];
+	$real = $_POST["real"];
 	//echo "<br>anio:".$anio;
 	$pago = $_POST["pago"];
 	//echo "<br>pago:".$pago;
@@ -72,9 +72,9 @@ include_once("operpagos_class.php");
 				$var_fecha_guardar = $anio + $mes;
 				
 				if ($var_fecha_guardar >= $var_fecha_actual)
-					$nuevo_concepto = strtoupper("pagos de mantenimiento");
+					$nuevo_concepto = -2;
 				else
-					$nuevo_concepto = strtoupper("pagos atrasados de mantenimiento");
+					$nuevo_concepto = -1;
 				
 				$resultadoIngre = $Objoperpagos->get_ingre_egre_pagos($mes, $anio, $pago, $nuevo_concepto);
 				while($row2=mysql_fetch_array($resultadoIngre)){ 
@@ -86,7 +86,7 @@ include_once("operpagos_class.php");
 				if ($entro1==1){
 					//si encontro, sumamos la cantidad mas lo que ya tenia
 					$nuevo_saldo = $res_monto + $monto;
-					$resultado = $Objoperpagos->update_saldo($mes, $anio, $pago, $nuevo_saldo, $res_fecha);
+					$resultado = $Objoperpagos->update_saldo($mes, $anio, $pago, $nuevo_saldo, $res_fecha, $nuevo_concepto);
 				}else{
 					$nuevo_saldo = $monto;
 					$resultado = $Objoperpagos->insert_saldo(date("Y-m-d H:i:s"), $mes, $anio, $pago, $nuevo_saldo, $nuevo_concepto);
@@ -101,9 +101,9 @@ include_once("operpagos_class.php");
 				$var_fecha_guardar = $anio + $mes;
 				
 				if ($var_fecha_guardar >= $var_fecha_actual)
-					$nuevo_concepto = strtoupper("pagos de mantenimiento");
+					$nuevo_concepto = -2;
 				else
-					$nuevo_concepto = strtoupper("pagos atrasados de mantenimiento");
+					$nuevo_concepto = -1;
 				
 				$resultadoIngre = $Objoperpagos->get_ingre_egre_pagos($mes, $anio, $pago, $nuevo_concepto);
 				while($row2=mysql_fetch_array($resultadoIngre)){ 
@@ -122,7 +122,7 @@ include_once("operpagos_class.php");
 					// traemos el monto actual del pago, y restamos el monto nuevo menos el traido, para tener la diferencia correcta
 					$nuevo_saldo = $res_monto + ($monto-$traer_monto);
 					//echo "traer_monto:".$traer_monto." monto:".$monto." res_monto:".$res_monto." nuevo_s:".$nuevo_saldo; 
-					$resultado = $Objoperpagos->update_saldo($mes, $anio, $pago, $nuevo_saldo, $res_fecha);
+					$resultado = $Objoperpagos->update_saldo($mes, $anio, $pago, $nuevo_saldo, $res_fecha, $nuevo_concepto);
 				}else{
 					$nuevo_saldo = $monto;
 					$resultado = $Objoperpagos->insert_saldo(date("Y-m-d H:i:s"), $mes, $anio, $pago, $nuevo_saldo, $nuevo_concepto);
@@ -130,7 +130,7 @@ include_once("operpagos_class.php");
 			}
 			$resultado = $Objoperpagos->update_operpagos($ent_operpagos);
 		}
-		//echo $resultado;
+		//echo $tipoguardar . " - " . $real . " - " . $entro1 . " - " . $resultado;
 		echo "Pago Realizado Correctamente";
 	
 	

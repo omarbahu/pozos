@@ -15,6 +15,12 @@ class casas {
     public $status; 
     public $direccion; 
     public $comentarios; 
+    public $lactivo;
+    public $ltipo;
+    public $barrio;
+    public $superficie;
+    public $descripcion;
+    public $refbanca; 
     
 	
 	

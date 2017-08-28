@@ -10,6 +10,8 @@ include_once("operpagos_entities.php");
 include_once("casas_class.php");
 include_once("operpagos_class.php");
 
+
+
 ?>
 <div class="panel-body">
     
@@ -27,7 +29,8 @@ include_once("operpagos_class.php");
             		
             	
             		<div class="pull-left">
-                  <input type="text" class="form-control" placeholder="No. Lote (204)" id="casa" name="casa" />
+            		    
+                  <input type="text" class="form-control" placeholder="No. Lote (204)" <?php if($admin == 0) {?> value="<?php echo $login_session; ?>" disabled="true" <?php } ?> id="casa" name="casa" />
                   </div>
                   
                 	<div class="pull-left">

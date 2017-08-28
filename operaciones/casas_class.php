@@ -36,8 +36,17 @@ class casas_class{
 	
 	function get_all_casas_CRUD(){
 		if ($this->con->conectar()== true){
-		   $sql_query="select numcasa, propietario, direccion, mail, telefono, rentado, arrendado, mailarrendado, comentarios, descuento, monto_dsc, admin, status
+		   $sql_query="select *
 		   				from casas order by numcasa"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function get_all_casas_combo(){
+		if ($this->con->conectar()== true){
+		   $sql_query="select *
+		   				from casas where lote = 1 order by numcasa"; 
 			//return $sql_query;
 			return mysql_query($sql_query);
 		}
@@ -45,8 +54,8 @@ class casas_class{
 	
 	function get_one_casas_CRUD($casa){
 		if ($this->con->conectar()== true){
-		   $sql_query="select numcasa, propietario, direccion, mail, telefono, rentado, arrendado, mailarrendado, comentarios, descuento, monto_dsc, password, admin, status
-		   				from casas where numcasa = ".$casa; 
+		   $sql_query="select *
+		   				from casas where numcasa = '$casa'"; 
 			//return $sql_query;
 			return mysql_query($sql_query);
 		}
@@ -54,7 +63,7 @@ class casas_class{
 	
 	function delete_casas_CRUD($casa){
 		if ($this->con->conectar()== true){
-			$sql_query="delete from casas where numcasa = ".$casa;
+			$sql_query="delete from casas where numcasa = '$casa'";
 			return mysql_query($sql_query);
 		}
 	}
@@ -63,8 +72,8 @@ class casas_class{
 
 	function gat_one_casas($casa){
 		if ($this->con->conectar()== true){
-		   $sql_query="select numcasa,propietario,mail,telefono,rentado,arrendado,mailarrendado,comentarios
-		   				from casas where numcasa =".$casa; 
+		   $sql_query="select *
+		   				from casas where numcasa = '$casa'"; 
 
 			return mysql_query($sql_query);
 		}
@@ -109,10 +118,10 @@ class casas_class{
 	function insert_casas_CRUD(casas $casas){
 		if ($this->con->conectar()== true){
 		   $sql_query="insert into casas (numcasa, propietario, direccion, mail, telefono, rentado, arrendado, mailarrendado, comentarios, 
-						descuento, monto_dsc, password, admin, status)
+						descuento, monto_dsc, password, admin, status, lote)
 		   				values ($casas->numcasa, '$casas->propietario', '$casas->direccion', '$casas->mail', '$casas->telefono', $casas->rentado, 
 		   				'$casas->arrendado', '$casas->mailarrendado', '$casas->comentarios', $casas->descuento, $casas->monto_dsc, '$casas->password', 
-		   				$casas->admin, $casas->status); "; 
+		   				$casas->admin, $casas->status, 1); "; 
 			//return $sql_query;
 			return mysql_query($sql_query);
 		}
@@ -133,7 +142,7 @@ class casas_class{
 										password = '$casas->password', 
 										admin = $casas->admin, 
 										status = $casas->status
-		   				where numcasa = ". $casas->numcasa; 
+		   				where numcasa = '". $casas->numcasa."'"; 
 			//return $sql_query;
 			return mysql_query($sql_query);
 		}
@@ -141,7 +150,7 @@ class casas_class{
 	
 	function borrar_casas_CRUD($casa){
 		if ($this->con->conectar()== true){
-		   $sql_query="delete from casas where numcasa = ". $casa; 
+		   $sql_query="delete from casas where numcasa =  '$casa'"; 
 			//return $sql_query;
 			return mysql_query($sql_query);
 		}		
@@ -186,6 +195,16 @@ class casas_class{
 		}
 	}
 	
+	function get_conceptos_edocta($tipo){
+		if ($this->con->conectar()== true){
+		   $sql_query="select idconcepto, idtipoconcepto, descripcion, gastofijo, monto from conceptos 
+		   where idtipoconcepto = $tipo
+		   order by gastofijo desc, descripcion"; 
+			return mysql_query($sql_query);
+		}
+	}
+	
+	
 	function get_one_conceptos($idconcepto){
 		if ($this->con->conectar()== true){
 		   $sql_query="select idconcepto, idtipoconcepto, descripcion, gastofijo, monto from conceptos where idconcepto = $idconcepto"; 
@@ -229,5 +248,128 @@ class casas_class{
 			return mysql_query($sql_query);
 		}
 	}
+	
+	function check_pass($pass, $lote){
+		if ($this->con->conectar()== true){
+		   $sql_query="select password  
+					   from casas
+					   where password = '$pass' and numcasa = '$lote'"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	function upd_pass($pass, $lote){
+		if ($this->con->conectar()== true){
+		   $sql_query="update casas set password = '$pass'
+					   where numcasa = '$lote'"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	// avisos
+	
+	function get_all_avisos(){
+		if ($this->con->conectar()== true){
+		   $sql_query="select * 
+					   from avisos order by fecha desc"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function get_all_avisos_activos(){
+		if ($this->con->conectar()== true){
+		   $sql_query="select * 
+					   from avisos where status = 1 order by fecha desc"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function get_all_avisos_lote($lote){
+		if ($this->con->conectar()== true){
+		   $sql_query="select * 
+					   from avisos where lote in ('$lote', 'TODOS') and status = 1 order by fecha desc"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function insert_avisos($lote, $fecha, $titulo, $aviso, $status){
+		if ($this->con->conectar()== true){
+		   $sql_query="insert into avisos (lote, fecha, titulo, aviso, status) values('$lote', '$fecha', '$titulo', '$aviso', $status)"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function borrar_avisos($idaviso){
+		if ($this->con->conectar()== true){
+		   $sql_query="delete  
+					   from avisos where idaviso = $idaviso"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function get_aviso($idaviso){
+		if ($this->con->conectar()== true){
+		   $sql_query="select * 
+					   from avisos where idaviso = $idaviso"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	//documentos
+	
+	function get_all_documentos(){
+		if ($this->con->conectar()== true){
+		   $sql_query="select * 
+					   from documentos order by fechacreac desc"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function get_all_documentos_activos(){
+		if ($this->con->conectar()== true){
+		   $sql_query="select * 
+					   from documentos where status = 1 order by fechacreac desc"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	
+	function get_all_tipdocumentos(){
+		if ($this->con->conectar()== true){
+		   $sql_query="select * 
+					   from tipodocs "; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function get_all_eventos(){
+		if ($this->con->conectar()== true){
+		   $sql_query="select * 
+					   from tcalendario order by fecha desc "; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function get_evento($idevento){
+		if ($this->con->conectar()== true){
+		   $sql_query="select * 
+					   from tcalendario where id= $idevento order by fecha desc "; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	
 }
 ?>

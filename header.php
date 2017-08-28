@@ -3,15 +3,12 @@
 include('session.php');
 
 
-  function nombremes($mes){
-   setlocale(LC_TIME, 'spanish');  
-   $nombre=strftime("%B",mktime(0, 0, 0, $mes, 1, 2000)); 
-   return $nombre;
-  } 
- 
 $admin = $admin_session;
 
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -52,9 +49,11 @@ $admin = $admin_session;
 
 
 
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
   	<div class="panel panel-default">
+  		
   		
   	<div class="ban_left" >
   		<br>
@@ -75,9 +74,11 @@ $admin = $admin_session;
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
       <ul class="nav navbar-nav">
         <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Link</a></li>-->
+        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lotes <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -89,19 +90,31 @@ $admin = $admin_session;
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Finanzas <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo $path; ?>operaciones/grid_edocta.php">Ingresos y Egresos</a></li>
+            <li><a href="<?php echo $path; ?>informes/ingresos_egresos.php">Ingresos y Egresos por Mes</a></li>
+            <li><a href="<?php echo $path; ?>informes/ingresos_egresos_anio.php">Ingresos y Egresos por Año</a></li>
             <li><a href="<?php echo $path; ?>operaciones/grid_resumen.php">Otro</a></li>
             <li role="separator" class="divider"></li>
           </ul>
         </li>
+        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administracion <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            
+            <?php if ($admin == 1) { ?>
+            
             <li><a href="<?php echo $path; ?>operaciones/agregar.php">Agregar Pagos</a></li>
-	   		<li><a href="<?php echo $path; ?>operaciones/agregar_operaciones.php">Agregar Ingr-Egre</a></li>
+	   		    <li><a href="<?php echo $path; ?>operaciones/agregar_operaciones.php">Agregar Ingr-Egre</a></li>
             <li role="separator" class="divider"></li>
+            <?php } ?>
+            <li><a href="<?php echo $path; ?>demo_cal/calendar.php">Eventos</a></li>
+            <li><a href="<?php echo $path; ?>catalogos/avisos/avisos.php">Avisos</a></li>
+            <li><a href="<?php echo $path; ?>catalogos/documentos/documentos.php">Documentos</a></li>
+            <li><a href="<?php echo $path; ?>change_pass.php">Cambiar Password</a></li>
+            <li><a href="<?php echo $path; ?>logout.php">Cerrar Sesion</a></li>
           </ul>
         </li>
+        <?php if ($admin == 1) { ?>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalogos <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -111,20 +124,16 @@ $admin = $admin_session;
             <li role="separator" class="divider"></li>
           </ul>
         </li>
+        <?php } ?>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
+          <br>
         	<b id="welcome">Hola: <i><?php echo $propietario_session; ?></i></b><br>
-			<b id="logout"><a href="logout.php">Salir</a></b></div>
+			
 		</li>
         
       </ul>
     </div><!-- /.navbar-collapse -->
     </div>
-  
-  
-  
-  
-  
-  

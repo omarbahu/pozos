@@ -1,5 +1,9 @@
 <?php
+include_once("session.php");
+
 session_start();
 session_destroy(); // Destroying All Sessions
-header("Location: http://bs-it.com.mx/pozos/"); // Redirecting To Home Page
+
+
+header("Location: ".$path); // Redirecting To Home Page
 ?>

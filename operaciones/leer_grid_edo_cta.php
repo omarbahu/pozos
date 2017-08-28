@@ -1,5 +1,6 @@
 <?php
 include_once("include.php");
+include_once("../session.php");
 include_once("casas_class.php");
 include_once("operpagos_class.php");
 
@@ -7,7 +8,7 @@ include_once("operpagos_class.php");
 $anio_cor = $_POST["anio"];
 $pago = $_POST["pago"];
 
-
+$admin = $admin_session;
 
 
 $anio_actual = date('o'); 
@@ -125,13 +126,17 @@ foreach ($array_casas as $valor) {
 	
 
 	$mes = 0;
+	//echo "admin:" . $admin;
 	if ($periodico == 1){
 		for ($anio = $anio_cor-1; $anio<=$anio_cor; $anio++){
 				//echo "casa:".$valor." ".$anio."....";
 			if ($mes == 0){
 				$array_edo[$valor-1][$mes-1] = $valor; 
 				// -------------------------------------------------------- //
-				echo "<td><b><a href='#' OnClick='ver_detalle(".$array_edo[$valor-1][$mes-1].",".$pago.");' >". $array_edo[$valor-1][$mes-1]." ". $res_propietario."</b></td>";
+				if ($admin == 0)
+					echo "<td><b>". $array_edo[$valor-1][$mes-1]."</b></td>";
+				else
+					echo "<td><b><a href='#' OnClick='ver_detalle(".$array_edo[$valor-1][$mes-1].",".$pago.");' >". $array_edo[$valor-1][$mes-1]. " " . $propietario . "</a></b></td>";
 				// -------------------------------------------------------- //
 				$mes = 1;
 				}
@@ -139,7 +144,7 @@ foreach ($array_casas as $valor) {
 			else{
 				$mesinicio = 1;
 				/*
-				if ($anio == 2013)
+				if ($anio == $anio_inicial)
 					$mesinicio = 3;
 				else
 					$mesinicio = 1;	

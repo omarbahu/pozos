@@ -1,4 +1,14 @@
 <?php 
+
+  function nombremes($mes){
+   setlocale(LC_TIME, 'spanish');  
+   $nombre=strftime("%B",mktime(0, 0, 0, $mes, 1, 2000)); 
+   return $nombre;
+  } 
+ 
+ $anio_inicial = 2017;
+$mes_inicial = 10;
+ 
 class DBManager{
         var $conect;
   

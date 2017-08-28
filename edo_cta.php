@@ -70,7 +70,7 @@ include_once("operpagos_class.php");
 	  <select name="number" id="number" >   
 	<?php 
 	$anio_actual = date('o');
-	for ($j=2013; $j<=$anio_actual+5; $j++) { ?>
+	for ($j=$anio_inicial; $j<=$anio_actual+5; $j++) { ?>
 		<option 
 		<?php if ($anio_actual==$j) { ?>
 		selected="selected"
