@@ -38,7 +38,7 @@ include '../header.php';
      
       <div class="row ">
               <div class="col-md-12">
-                  <h4 class="modal-title" id="myModalLabel">Agregar Pago de Couta de un Lote</h4>
+                  <h4 class="modal-title" id="myModalLabel">Agregar Pagos Individuales de un Lote</h4>
               </div>
           </div>
           <br>
@@ -98,18 +98,18 @@ include '../header.php';
           </div>
           <div class="col-sm-6 col-lg-4">
             <div class="form-group">
-              <label for="inputEmail" class="col-md-4 control-label">Tipo de Pago:</label>
+              <label for="inputEmail" class="col-md-4 control-label">Pago:</label>
               
               <div class="col-md-8">
                 <?php
                   $Objpagos = new casas_class();
-                  $resTipoPagos = $Objpagos->get_tipopago();
+                  $resTipoPagos = $Objpagos->get_conceptos_edocta(4);
                   $resFormaPagos = $Objpagos->get_formapago();	
                   ?>
                   
                   <select id="pago" class="selectpicker" name="pago">
                   <?php while($row=mysql_fetch_array($resTipoPagos)){  ?>
-                  <option value="<?php echo $row['idtipopago']; ?>"><?php echo $row['ABREV']; ?></option>
+                  <option value="<?php echo $row['idconcepto']; ?>"><?php echo $row['descripcion']; ?></option>
                   <?php } ?>
                   </select>
               </div>
@@ -151,17 +151,6 @@ include '../header.php';
                 <option value="1">GUARDAR</option>
                 <option value="2">ACTUALIZAR</option>
                 </select>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4">
-            <div class="form-group">
-              <label for="inputEmail" class="col-md-4 control-label">Opcion de Pago:</label>
-              <div class="col-md-8">
-                  <span class="input-group-addon">
-                    <input type="checkbox" aria-label="..." id="real" name="real" checked>
-                    <label for="Real">Real (Auto. se va a Ingresos)</label>
-                  </span>
               </div>
             </div>
           </div>
@@ -220,7 +209,7 @@ $("#form1").submit(function(event)
   // Get some values from elements on the page:
   var formData = $("#form1").serialize();
   
-  $.post("guardar.php",formData,function(respuesta){
+  $.post("guardar_individual.php",formData,function(respuesta){
         alert(respuesta);
         
         //alert("Registro Agregado correctamente"); //Mostramos un alert del resultado devuelto por el php

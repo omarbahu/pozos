@@ -8,13 +8,14 @@ include_once("../operaciones/casas_class.php");
 include_once("../operaciones/operpagos_class.php");
 
 $object = new casas_class();
-$lotes = $object->get_all_casas_combo(); 
+//$lotes = $object->get_all_casas_combo(); 
 ?>
 
 	<link type="text/css" rel="stylesheet" media="all" href="estilos.css">
+	<!-- 
 	<script type="text/javascript" src="https://select2.github.io/dist/js/select2.full.js"></script>
 	<link href="https://select2.github.io/dist/css/select2.min.css" type="text/css" rel="stylesheet" />
-
+	-->
     
 	
 <div class="panel-body">
@@ -55,29 +56,25 @@ $lotes = $object->get_all_casas_combo();
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel" style="color:#c1863f;">Agregar Nuevo Evento </h4>
-                
             </div>
             <div id='respuesta_form'></div>
             <div class="modal-body">
  
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-2 control-label" style="color:#c1863f;">No. Lote</label>
-                    <div class="col-sm-4">
-                    	<select class='js-example-basic-single' id='casa' name='casa' style='width: 80%'>
-                    		<?php while($row=mysql_fetch_array($lotes)){  ?>
-                    		<option value='<?php echo $row['numcasa']; ?>'>
-                    		<?php echo $row['numcasa']; ?></option><?php } ?>
-                    	</select>
+                    <label for="first_name" class="col-sm-2 control-label" style="color:#c1863f;">Titulo</label>
+                    <div class="col-sm-10">
+                    	<input type="text" id="titulo" name="titulo" placeholder="Titulo del Evento" class="form-control"/>
                     </div>
                 </div>
                 <br><input type='hidden' name='evento_fecha' id='evento_fecha' value='"+fecha+"'>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-2 control-label" style="color:#c1863f;">Nota del Evento</label>
+                    <label for="first_name" class="col-sm-2 control-label" style="color:#c1863f;">Evento</label>
                     <div class="col-sm-10">
-                    <input type="text" id="evento_titulo" name="evento_titulo" placeholder="Nota del Evento" class="form-control"/>
+                    	<textarea type="text" rows="2" id="evento_titulo" placeholder="Descripcion del Aviso" class="form-control"> </textarea>
+                    
                     </div>
                 </div>
-                
+                <br>
  
             </div>
             <div class="modal-footer">
@@ -122,7 +119,7 @@ $lotes = $object->get_all_casas_combo();
 			/* GENERAMOS CALENDARIO CON FECHA DE HOY */
 			generar_calendario("<?php if (isset($_GET["mes"])) echo $_GET["mes"]; ?>","<?php if (isset($_GET["anio"])) echo $_GET["anio"]; ?>");
 			
-			$(".js-example-basic-single").select2();
+			//$(".js-example-basic-single").select2();
 			
 			/* AGREGAR UN EVENTO */
 			$(document).on("click",'a.add',function(e) 
@@ -179,13 +176,13 @@ $lotes = $object->get_all_casas_combo();
 				$("#respuesta_form").html("<img src='images/loading.gif'>");
 				var evento=$("#evento_titulo").val();
 				var fecha=$("#evento_fecha").val();
-				var lote=$("#casa").val();
+				var titulo=$("#titulo").val();
 				
 				$.ajax({
 					type: "GET",
 					url: "ajax_calendario.php?admin=<?php echo $admin; ?>",
 					cache: false,
-					data: { evento:evento,fecha:fecha,lote:lote,accion:"guardar_evento" }
+					data: { evento:evento,fecha:fecha,titulo:titulo,accion:"guardar_evento" }
 				}).done(function( respuesta2 ) 
 				{
 					
@@ -223,6 +220,7 @@ $lotes = $object->get_all_casas_combo();
 			{
 				e.preventDefault();
 				var datos=$(this).attr("rel");
+				
 				var nueva_fecha=datos.split("-");
 				generar_calendario(nueva_fecha[1],nueva_fecha[0]);
 			});

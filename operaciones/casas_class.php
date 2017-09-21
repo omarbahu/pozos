@@ -81,7 +81,14 @@ class casas_class{
 	
 	function get_tipopago(){
 		if ($this->con->conectar()== true){
-		   $sql_query="select idtipopago, descripcion, ABREV, periodico from tipopago order by idtipopago"; 
+		   $sql_query="select idtipopago, descripcion, ABREV, periodico from tipopago where idtipopago > 0 order by idtipopago"; 
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function get_pago_indi(){
+		if ($this->con->conectar()== true){
+		   $sql_query="select idtipopago, descripcion, ABREV, periodico from tipopago where idtipopago = -1 order by idtipopago"; 
 			return mysql_query($sql_query);
 		}
 	}
@@ -371,5 +378,25 @@ class casas_class{
 	}
 	
 	
+	// Proveedores
+	
+	function get_proveedores(){
+		if ($this->con->conectar()== true){
+		   $sql_query="SELECT idproveedor, proveedor, contacto, email, direccion, ciudad, telefono, a.idconcepto, b.descripcion 
+					   from proveedores a inner join conceptos b on a.idconcepto = b.idconcepto
+					   order by proveedor "; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
+	
+	function add_proveedor_CRUD($idconcepto, $proveedor, $contacto, $telefono,$ciudad, $email, $direccion){
+		if ($this->con->conectar()== true){
+		   $sql_query="insert into proveedores (proveedor, direccion, contacto, ciudad, email, telefono, idconcepto)
+						values ('$proveedor', '$direccion', '$contacto', '$ciudad', '$email', '$telefono', $idconcepto)"; 
+			//return $sql_query;
+			return mysql_query($sql_query);
+		}
+	}
 }
 ?>

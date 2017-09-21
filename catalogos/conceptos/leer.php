@@ -28,8 +28,8 @@ while($row=mysql_fetch_array($cuotas)){
 			$tipo_con = "Egreso";
 		}elseif ($row['idtipoconcepto']==2){ 
 			$tipo_con = "Ingreso";
-		}else {
-			$tipo_con = "Pagos";
+		}elseif ($row['idtipoconcepto']==4){ 
+			$tipo_con = "Pagos Individuales";
 		}
 		$gastfijo = "NO";
 		if ($row['gastofijo']==1){

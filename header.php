@@ -103,8 +103,9 @@ $admin = $admin_session;
             
             <?php if ($admin == 1) { ?>
             
-            <li><a href="<?php echo $path; ?>operaciones/agregar.php">Agregar Pagos</a></li>
-	   		    <li><a href="<?php echo $path; ?>operaciones/agregar_operaciones.php">Agregar Ingr-Egre</a></li>
+            <li><a href="<?php echo $path; ?>operaciones/agregar.php">Registrar Pagos de Cuotas</a></li>
+            <li><a href="<?php echo $path; ?>operaciones/agregar_individual.php">Registrar Pagos Individuales</a></li>
+	   		    <li><a href="<?php echo $path; ?>operaciones/agregar_operaciones.php">Registrar Ingr-Egre</a></li>
             <li role="separator" class="divider"></li>
             <?php } ?>
             <li><a href="<?php echo $path; ?>demo_cal/calendar.php">Eventos</a></li>
@@ -119,8 +120,9 @@ $admin = $admin_session;
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalogos <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo $path; ?>catalogos/casas/lotes.php">Lotes</a></li>
-	   		<li><a href="<?php echo $path; ?>catalogos/cuotas/cuotas.php">Cuotas</a></li>
-	   		<li><a href="<?php echo $path; ?>catalogos/conceptos/conceptos.php">Conceptos</a></li>
+         		<li><a href="<?php echo $path; ?>catalogos/cuotas/cuotas.php">Cuotas</a></li>
+         		<li><a href="<?php echo $path; ?>catalogos/conceptos/conceptos.php">Conceptos</a></li>
+         		<li><a href="<?php echo $path; ?>catalogos/proveedores/proveedores.php">Proveedores</a></li>
             <li role="separator" class="divider"></li>
           </ul>
         </li>

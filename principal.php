@@ -7,9 +7,27 @@ include_once("operaciones/include.php");
 include_once("operaciones/casas_class.php");
 include_once("operaciones/operpagos_class.php");
 
+
 ?>
+<link type="text/css" rel="stylesheet" media="all" href="demo_cal/estilos_princ.css">
 
 <script type="text/javascript" >
+	function formatDate (input) {
+		var datePart = input.match(/\d+/g),
+		year = datePart[0].substring(2),
+		month = datePart[1], day = datePart[2];
+		return day+'-'+month+'-'+year;
+	}
+
+$(document).on("click",".anterior,.siguiente",function(e)
+			{
+				e.preventDefault();
+				var datos=$(this).attr("rel");
+				
+				var nueva_fecha=datos.split("-");
+				generar_calendario(nueva_fecha[1],nueva_fecha[0]);
+			});
+			
 function GetAviso(id) {
     
     $.post("detalles_princilap.php", {
@@ -35,6 +53,7 @@ function GetAviso(id) {
     $("#avisos_modal").modal("show");
 }
 
+
 function GetEvento(id) {
     
     $.post("detalles_princilap.php", {
@@ -54,6 +73,55 @@ function GetEvento(id) {
     // Open modal popup
     $("#eventos_modal").modal("show");
 }
+
+$(document).ready(function () {
+    // READ records on page load
+    generar_calendario();
+});
+		
+function generar_calendario(mes,anio)
+	{
+		var agenda=$(".cal2");
+		
+		agenda.html("<img src='demo_cal/images/loading.gif'>");
+		$.ajax({
+			type: "GET",
+			url: "demo_cal/ajax_calendario_princ.php",
+			cache: false,
+			data: { mes:mes,anio:anio,accion:"generar_calendario",admin:"0" }
+		}).done(function( respuesta ) 
+		{
+			
+			agenda.html(respuesta);
+		});
+	}
+	$(document).on("click",'a.modal2',function(e) 
+			{
+			    
+				e.preventDefault();
+				var fecha = $(this).attr('rel');
+				
+				$('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'><h4>Eventos del "+formatDate(fecha)+"</h4><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
+				$.ajax({
+					type: "GET",
+					url: "demo_cal/ajax_calendario_princ.php?admin=<?php echo $admin; ?>",
+					cache: false,
+					data: { fecha:fecha,accion:"listar_evento" }
+				}).done(function( respuesta ) 
+				{
+				    
+				    var evento = JSON.parse(respuesta);
+            
+                    $("#lblote2").text(evento.titulo);
+                    $("#lbfecha2").text(evento.fecha);
+                    $("#lbevento").text(evento.evento);
+                    
+                    $("#eventos_modal").modal("show");
+                    
+					//$("#respuesta_form").html(respuesta);
+				});
+			
+			});
 </script>
 
 <div class="panel-body">
@@ -136,6 +204,10 @@ function GetEvento(id) {
           </table>
           </div>
           <div class="panel-body">
+              <div class="calendario_ajax2">
+				<div class="cal2"></div>
+			</div>
+			<!--
               <ul>
                   <?php 
                     $object = new casas_class();
@@ -147,6 +219,7 @@ function GetEvento(id) {
                       <li><a href="#" onclick="GetEvento(<?php echo $row['id']; ?>)" ><?php echo $row['fecha']; ?>:  <?php echo $row['evento']; ?> ...</a> </li>
                     <?php } ?>
               </ul>
+              -->
           </div>
         </div>  
 	  </div>
@@ -267,7 +340,7 @@ function GetEvento(id) {
             <div class="modal-body">
  
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-2 control-label" style="color:black;">No. Lote</label>
+                    <label for="first_name" class="col-sm-2 control-label" style="color:black;">Titulo</label>
                     <div class="col-sm-10">
                         
                         <label class="col-sm-10 control-label" id="lblote2" style="color:black;"></label>

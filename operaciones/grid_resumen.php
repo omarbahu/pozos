@@ -10,9 +10,10 @@ include_once("operpagos_entities.php");
 include_once("casas_class.php");
 include_once("operpagos_class.php");
 
-
-
 ?>
+<script type="text/javascript" src="<?php echo $path; ?>js/select2/select2.js"></script>
+<link rel="stylesheet" href="<?php echo $path; ?>css/select2/select2.css">
+
 <div class="panel-body">
     
 <div class="container">
@@ -30,7 +31,23 @@ include_once("operpagos_class.php");
             	
             		<div class="pull-left">
             		    
-                  <input type="text" class="form-control" placeholder="No. Lote (204)" <?php if($admin == 0) {?> value="<?php echo $login_session; ?>" disabled="true" <?php } ?> id="casa" name="casa" />
+                  <select class="js-example-basic-single" id="casa" name="casa" style="width: 100%">
+                <?php 
+                if($admin == 1) {
+                $object = new casas_class();
+                $lotes = $object->get_all_casas_combo(); 
+                while($row=mysql_fetch_array($lotes)){ 
+                ?>
+                  <option value="<?php echo $row['numcasa']; ?>"><?php echo $row['numcasa']; ?></option>
+                <?php } 
+                } else {  ?>
+                  <option value="<?php echo $login_session; ?>"><?php echo $login_session; ?></option>
+                <?php 
+                    
+                }
+                ?>
+                
+                </select>
                   </div>
                   
                 	<div class="pull-left">
@@ -83,6 +100,11 @@ function readRecords(pago, casa) {
         $(".records_content").html(data);
     });
 }
+
+$(document).ready(function() {
+  $(".js-example-basic-single").select2();
+});
+
 
 function verAnio(pago, anio) {
 	

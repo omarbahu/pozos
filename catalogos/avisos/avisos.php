@@ -9,8 +9,8 @@ include_once("../../operaciones/operpagos_class.php");
 
 
 ?>
-<script type="text/javascript" src="https://select2.github.io/dist/js/select2.full.js"></script>
-<link href="https://select2.github.io/dist/css/select2.min.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="<?php echo $path; ?>js/select2/select2.js"></script>
+<link rel="stylesheet" href="<?php echo $path; ?>css/select2/select2.css">
 
 <!-- Custom JS file -->
 <script type="text/javascript">
@@ -151,7 +151,7 @@ function DeleteUser(id) {
                 <br>
                 <div class="form-group">
                     <label for="first_name" class="col-sm-2 control-label">Fecha</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                     <input type="date" class="form-control" id="fecha" name="fecha" value="<?php date("y-m-d") ?>" placeholder="Fecha">
                     </div>
                 </div>
@@ -166,21 +166,28 @@ function DeleteUser(id) {
                 <div class="form-group">
                     <label for="first_name" class="col-sm-2 control-label">Aviso</label>
                     <div class="col-sm-10">
-                    <textarea type="text" rows="3" id="aviso" placeholder="Descripcion del Aviso" class="form-control"> </textarea>
+                    <textarea type="text" rows="2" id="aviso" placeholder="Descripcion del Aviso" class="form-control"> </textarea>
+                    </div>
+                </div>
+                
+                <br>
+                <div class="form-group">
+                    <label for="first_name" class="col-sm-2 control-label">Correos</label>
+                    <div class="col-sm-10">
+                    <textarea type="email" rows="2" id="mails" placeholder="correos: correo@mail.com;" class="form-control" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"> </textarea>
                     </div>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-2 control-label">Status</label>
+                    <label for="first_name" class="col-sm-2 control-label">Documento</label>
                     <div class="col-sm-10">
-                    <select class="js-example-basic-single" id="status" name="status" style="width: 50%">
-                        <option value="1" selected>Activo</option>
-                        <option value="0" >Inactivo</option>
-                    </select>
+                    <input id="fileupload" type="file" name="files[]" data-url="server/php/" >
                     </div>
                 </div>
+                <br>
                 
             </div>
+            <br>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <button type="button" id="btguardar" class="btn btn-primary" onclick="addRecord()">Guardar</button>

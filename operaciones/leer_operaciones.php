@@ -16,7 +16,7 @@ $data = '<table class="table table-bordered table-striped">
 							<th>Concepto</th>
 							<th>Monto</th>
 							<th><a href="#" onclick="copyval()" ><img src="http://icdn.pro/images/es/v/o/volver-flecha-azul-a-la-izquierda-icono-8990-128.png" height="30" width="30"></a>Gasto Fijo</th>
-							<th>Accion</th>
+							<th>Accion <button onclick="GuardarTodos(' . $operacion . ',' . $anio . ',' . $mes . ')" alt="Guardar Todos" class="btn btn-primary">GT</button></th>
 						</tr>';
 
 
@@ -33,13 +33,15 @@ while($row=mysql_fetch_array($conceptos)){
 	//echo " - ". $row['monto'] . ";";
 	if ($row['monto'] == ''){
 		//$monto = $row['monto_fijo'];
-		$botones .= '<button onclick="Guardar(' . $operacion . ',' . $idcon . ',' . $anio . ',' . $mes . ')" class="btn btn-primary">G</button>';
+		$botones .= '<button onclick="Guardar(' . $operacion . ',' . $idcon . ',' . $anio . ',' . $mes . ')" class="btn btn-primary">G</button>
+		<input type="hidden" id="hid-'.$operacion . '_' . $idcon . '_' . $anio . '_' . $mes .'" class="form-control" value="0" />';
 	}
 	else {
 		// code...
 		$monto = $row['monto'];
 		$botones .= '<button onclick="Actualizar(' . $operacion . ',' . $idcon . ',' . $row['anio'] . ',' . $row['mes'] . ')" class="btn btn-info">A</button>
-                <button onclick="Borrar(' . $operacion . ',' . $idcon . ',' . $row['anio'] . ',' . $row['mes'] . ')" class="btn btn-danger">B</button>';
+                <button onclick="Borrar(' . $operacion . ',' . $idcon . ',' . $row['anio'] . ',' . $row['mes'] . ')" class="btn btn-danger">B</button>
+                <input type="hidden" id="hid-'.$operacion . '_' . $idcon . '_' . $anio . '_' . $mes .'" class="form-control" value="1" />';
 		
 	}
 	$oper = "";
@@ -60,7 +62,7 @@ while($row=mysql_fetch_array($conceptos)){
 	switch ($row['gastofijo']){
 		case 1:
 			$gasfijo = "SI";
-			$cgf = '<div class="col-xs-4"><input type="text" id="gas-'.$operacion . '_' . $idcon . '_' . $anio . '_' . $mes .'" class="form-control" value="' . $row['monto_fijo'] .'" /></div>';
+			$cgf = '<div class="col-xs-6"><input type="text" id="gas-'.$operacion . '_' . $idcon . '_' . $anio . '_' . $mes .'" class="form-control" value="' . $row['monto_fijo'] .'" /></div>';
 			break;
 		case 0:
 			$gasfijo = "NO";
@@ -73,7 +75,7 @@ while($row=mysql_fetch_array($conceptos)){
         $data .= '<tr>
 				<td>' . $oper .'</td>
                 <td>' . $row['descripcion'] .'</td>
-                <td><div class="col-xs-4"><input type="text" id="val-'.$operacion . '_' . $idcon . '_' . $anio . '_' . $mes .'" class="form-control" value="' . $monto .'" /></div></td>
+                <td><div class="col-xs-6"><input type="text" id="val-'.$operacion . '_' . $idcon . '_' . $anio . '_' . $mes .'" class="form-control" value="' . $monto .'" /></div></td>
                 <td>' . $gasfijo . $cgf . '</td>
                 <td>' . $botones . '</td>
     		</tr>';

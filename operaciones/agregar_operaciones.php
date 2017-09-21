@@ -162,12 +162,43 @@ function Guardar(operacion, idconcepto, anio, mes){
             mes:mes, 
             accion:1
         }, function (data, status) {
-            alert(data);
+            //alert(data);
             // close the popup
             readRecords($( "#pago" ).val(), $( "#anio" ).val() ,$( "#mes" ).val());  
             
         });
 }
+
+function GuardarTodos(operacion, anio, mes){
+  
+  
+  var x = 0;
+    var spl = "";
+    var spl2 = "";
+    
+    $(".form-control").each(function(){
+            x = x + 1;
+        	    //alert($(this).val() + " " + $(this).attr('id'));
+        	    spl = $(this).attr('id').split("-");
+        	    
+        	    if (spl[0]=="val"){
+        	        spl2 = spl[1].split("_");
+        	        //alert($("#val-"+spl[1]).val());
+        	        if ($("#val-"+spl[1]).val() != 0){
+        	            if ($("#hid-"+spl[1]).val() == 0){
+        	                Guardar(operacion, spl2[1], anio, mes);
+        	            } else {
+        	                Actualizar(operacion, spl2[1], anio, mes);
+        	            }
+        	        }
+        	    }
+        	    
+        	    //if (x >= 4)
+        	       // return false; 
+        	});
+        	
+}
+
 
 function Actualizar(operacion, idconcepto, anio, mes){
   var mon = $("#val-"+operacion+"_"+idconcepto+"_"+anio+"_"+mes).val();
@@ -180,7 +211,7 @@ function Actualizar(operacion, idconcepto, anio, mes){
             mes:mes, 
             accion:2
         }, function (data, status) {
-            alert(data);
+            
             // close the popup
             readRecords($( "#pago" ).val(), $( "#anio" ).val() ,$( "#mes" ).val());  
             

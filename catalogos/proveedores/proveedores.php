@@ -1,14 +1,25 @@
 
  <?php 
 include '../../header.php';
+
+include_once("../../operaciones/include.php");
+include_once("../../operaciones/casas_class.php");
+include_once("../../operaciones/operpagos_class.php");
 ?>
 <!-- Custom JS file -->
+<script type="text/javascript" src="<?php echo $path; ?>js/select2/select2.js"></script>
+<link rel="stylesheet" href="<?php echo $path; ?>css/select2/select2.css">
+
+
 <script type="text/javascript">
     
 $(document).ready(function () {
     // READ records on page load
     readRecords(); // calling function
+    $(".js-example-basic-single").select2();
 });
+
+
 
 function readRecords() {
     $.get("leer.php", {}, function (data, status) {
@@ -69,31 +80,28 @@ function updRecord() {
 // Add Record
 function addRecord() {
     // get values
-    var idtipoconcepto = $("#idtipoconcepto").val();
-    var descripcion = $("#descripcion").val();
+    var idconcepto = $("#concepto").val();
+    var proveedor = $("#proveedor").val();
+    var contacto = $("#contacto").val();
+    var direccion = $("#direccion").val();
+    var email = $("#email").val();
+    var telefono = $("#telefono").val();
+    var ciudad = $("#ciudad").val();
     
 
-    var monto = $("#monto").val();
-    if (monto == "")
-        monto = 0;
-    var gastofijo = 0;
-    if ($("#gastofijo").is(':checked')){
-        gastofijo = 1;
-    }
-    
-    if (descripcion == "") {
-        alert("El campo descripcion es Requerido!");
-    }
-    else if (gastofijo == 1 && monto == ""){
-        alert("El campo monto es Requerido!");
+    if (proveedor == "") {
+        alert("El campo proveedor es Requerido!");
     }
     else {
         // Add record
         $.post("crear.php", {
-            idtipoconcepto:idtipoconcepto,
-            descripcion:descripcion,
-            gastofijo:gastofijo,
-            monto:monto
+            idconcepto:idconcepto,
+            proveedor:proveedor,
+            contacto:contacto,
+            direccion:direccion, 
+            telefono:telefono, 
+            email:email,
+            ciudad:ciudad
         }, function (data, status) {
             //alert(data);
             // close the popup
@@ -104,9 +112,14 @@ function addRecord() {
  
             // clear fields from the popup
             
-            $("#descripcion").val("");
-            $("#monto").val("");
-            $("#gastofijo").prop('checked', false);
+            $("#proveedor").val("");
+            $("#contacto").val("");
+            $("#ciudad").val("");
+            $("#telefono").val("");
+            $("#email").val("");
+            $("#direccion").val("");
+            
+            
             
         });
     
@@ -169,19 +182,19 @@ function DeleteUser(idconcepto) {
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h4 class="modal-title" id="myModalLabel">Catalogo de Conceptos</h4>
+            <h4 class="modal-title" id="myModalLabel">Catalogo de Proveedores</h4>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="pull-right">
-                <button class="btn btn-success" data-toggle="modal" data-target="#add_new_record_modal">Agregar Concepto</button>
+                <button class="btn btn-success" data-toggle="modal" data-target="#add_new_record_modal">Agregar Proveedor</button>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h3>Conceptos:</h3>
+            <h3>Proveedores:</h3>
  
             <div class="records_content"></div>
         </div>
@@ -198,41 +211,66 @@ function DeleteUser(idconcepto) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Agregar Nuevo Concepto</h4>
+                <h4 class="modal-title" id="myModalLabel">Agregar Nuevo Proveedor</h4>
                 
             </div>
             <div class="modal-body">
                 <br>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-4 control-label">Tipo de Concepto</label>
+                    <label for="first_name" class="col-sm-4 control-label">Proveedor</label>
                     <div class="col-sm-6">
-                        <select class="selectpicker" id="idtipoconcepto">
-                        <option value="1">INGRESO</option>
-                    <option value="2">EGRESO</option>
-                    <option value="4">PAGOS INDIVIDUALES</option>
-                    </select>
+                        <input type="text" id="proveedor" placeholder="Proveedor" class="form-control"/>
                     </div>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-4 control-label">descripcion</label>
+                    <label for="first_name" class="col-sm-4 control-label">Contacto</label>
                     <div class="col-sm-6">
-                        <input type="hidden" id="idconcepto" class="form-control"/>
-                    <input type="text" id="descripcion" placeholder="descripcion" class="form-control"/>
+                        <input type="hidden" id="idproveedor" class="form-control"/>
+                    <input type="text" id="contacto" placeholder="Contacto" class="form-control"/>
                     </div>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-4 control-label">Gasto Fijo</label>
+                    <label for="first_name" class="col-sm-4 control-label">Email</label>
                     <div class="col-sm-6">
-                    <input type="checkbox" id="motofijo" name="gastofijo">
+                    <input type="text" id="email" placeholder="E Mail" class="form-control"/>
                     </div>
                 </div>
                  <br>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-4 control-label">Monto de Gasto  Fijo</label>
+                    <label for="first_name" class="col-sm-4 control-label">Direccion</label>
                     <div class="col-sm-6">
-                    <input type="text" id="monto" placeholder="monto" class="form-control"/>
+                    <input type="text" id="direccion" placeholder="Direccion" class="form-control"/>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="first_name" class="col-sm-4 control-label">Ciudad</label>
+                    <div class="col-sm-6">
+                    <input type="text" id="ciudad" placeholder="Ciudad" class="form-control"/>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="first_name" class="col-sm-4 control-label">Telefono</label>
+                    <div class="col-sm-6">
+                    <input type="text" id="telefono" placeholder="Telefono" class="form-control"/>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="first_name" class="col-sm-4 control-label">Concepto</label>
+                    <div class="col-sm-6">
+                        <select class="js-example-basic-single" id="concepto" name="concepto" style="width: 100%">
+                        <?php 
+                        $object = new casas_class();
+                        $conceptos = $object->get_conceptos_edocta(2); 
+                        while($row=mysql_fetch_array($conceptos)){ 
+                        ?>
+                          <option value="<?php echo $row['idconcepto']; ?>"><?php echo $row['descripcion']; ?></option>
+                        <?php } ?>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -251,42 +289,66 @@ function DeleteUser(idconcepto) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Actualizar Concepto</h4>
+                <h4 class="modal-title" id="myModalLabel">Actualizar Proveedor</h4>
                 
             </div>
             <div class="modal-body">
- 
+                <br>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-4 control-label">Tipo de Concepto</label>
+                    <label for="first_name" class="col-sm-4 control-label">Proveedor</label>
                     <div class="col-sm-6">
-                    <select class="selectpicker" id="U_idtipoconcepto">
-                        <option value="1">INGRESO</option>
-                    <option value="2">EGRESO</option>
-                    <option value="4">PAGOS INDIVIDUALES</option>
-                    </select>
-
+                        <input type="text" id="U_proveedor" placeholder="Proveedor" class="form-control"/>
                     </div>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-4 control-label">descripcion</label>
+                    <label for="first_name" class="col-sm-4 control-label">Contacto</label>
                     <div class="col-sm-6">
-                    <input type="text" id="U_descripcion" placeholder="descripcion" class="form-control"/>
-                    <input type="hidden" id="U_idconcepto" class="form-control"/>
+                        <input type="hidden" id="U_idproveedor" class="form-control"/>
+                    <input type="text" id="U_contacto" placeholder="Contacto" class="form-control"/>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="first_name" class="col-sm-4 control-label">Email</label>
+                    <div class="col-sm-6">
+                    <input type="text" id="U_email" placeholder="E Mail" class="form-control"/>
                     </div>
                 </div>
                  <br>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-4 control-label">Gasto Fijo</label>
+                    <label for="first_name" class="col-sm-4 control-label">Direccion</label>
                     <div class="col-sm-6">
-                    <input type="checkbox" id="U_gastofijo" name="U_gastofijo">
+                    <input type="text" id="U_direccion" placeholder="Direccion" class="form-control"/>
                     </div>
                 </div>
-                 <br>
+                <br>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-4 control-label">Monto de Gasto  Fijo</label>
+                    <label for="first_name" class="col-sm-4 control-label">Ciudad</label>
                     <div class="col-sm-6">
-                    <input type="text" id="U_monto" placeholder="Monto" class="form-control"/>
+                    <input type="text" id="U_ciudad" placeholder="Ciudad" class="form-control"/>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="first_name" class="col-sm-4 control-label">Telefono</label>
+                    <div class="col-sm-6">
+                    <input type="text" id="U_telefono" placeholder="Telefono" class="form-control"/>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="first_name" class="col-sm-4 control-label">Concepto</label>
+                    <div class="col-sm-6">
+                        <select class="js-example-basic-single" id="U_concepto" name="concepto" style="width: 100%">
+                        <?php 
+                        $object = new casas_class();
+                        $conceptos = $object->get_conceptos_edocta(2); 
+                        while($row=mysql_fetch_array($conceptos)){ 
+                        ?>
+                          <option value="<?php echo $row['idconcepto']; ?>"><?php echo $row['descripcion']; ?></option>
+                        <?php } ?>
+                        </select>
                     </div>
                 </div>
             </div>

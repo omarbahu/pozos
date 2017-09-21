@@ -13,9 +13,8 @@ include_once("../../operaciones/operpagos_class.php");
 
 
 
-<script type="text/javascript" src="https://select2.github.io/dist/js/select2.full.js"></script>
-
-<link href="https://select2.github.io/dist/css/select2.min.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="<?php echo $path; ?>js/select2/select2.js"></script>
+<link rel="stylesheet" href="<?php echo $path; ?>css/select2/select2.css">
 
 <!-- Custom JS file -->
 
